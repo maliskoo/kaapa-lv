@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="lv">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kaapa — Coming Soon</title>
+<meta name="description" content="The first smart home voice assistant built for the Baltic. Latvian, Lithuanian, Estonian — natively.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #F7F4EF;
+    --ink: #1C1917;
+    --muted: #78716C;
+    --birch: #A07850;
+    --border: rgba(28,25,23,0.1);
+    --white: #FDFCFA;
+  }
+
+  html, body {
+    height: 100%;
+  }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* NOISE TEXTURE */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.025'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* NAV */
+  nav {
+    position: relative;
+    z-index: 1;
+    padding: 28px 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .logo {
+    font-family: 'Instrument Serif', serif;
+    font-size: 22px;
+    letter-spacing: -0.01em;
+    color: var(--ink);
+    text-decoration: none;
+  }
+
+  .nav-tag {
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--muted);
+    font-weight: 400;
+  }
+
+  /* HERO */
+  main {
+    position: relative;
+    z-index: 1;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 80px 24px;
+  }
+
+  .device {
+    width: 80px;
+    height: 60px;
+    margin: 0 auto 48px;
+    position: relative;
+  }
+
+  .device-body {
+    width: 80px;
+    height: 50px;
+    background: linear-gradient(160deg, #8B6F50 0%, #5C4232 60%, #3D2B1F 100%);
+    border-radius: 28px 28px 22px 22px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .device-grille {
+    position: absolute;
+    inset: 8px 12px;
+    border-radius: 18px 18px 14px 14px;
+    background: repeating-linear-gradient(
+      0deg, transparent, transparent 2.5px,
+      rgba(247,244,239,0.06) 2.5px, rgba(247,244,239,0.06) 3px
+    ),
+    repeating-linear-gradient(
+      90deg, transparent, transparent 4px,
+      rgba(247,244,239,0.04) 4px, rgba(247,244,239,0.04) 4.5px
+    );
+  }
+
+  .device-light {
+    position: absolute;
+    top: -3px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 20px;
+    height: 4px;
+    background: var(--birch);
+    border-radius: 2px;
+    animation: breathe 3s ease-in-out infinite;
+  }
+
+  @keyframes breathe {
+    0%, 100% { opacity: 0.5; }
+    50% { opacity: 1; box-shadow: 0 0 8px rgba(160,120,80,0.6); }
+  }
+
+  .device-base {
+    width: 68px;
+    height: 10px;
+    background: linear-gradient(180deg, #2C1F14, #1A1008);
+    border-radius: 0 0 16px 16px;
+    margin: 0 auto;
+  }
+
+  .eyebrow {
+    font-size: 11px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--birch);
+    font-weight: 400;
+    margin-bottom: 20px;
+  }
+
+  h1 {
+    font-family: 'Instrument Serif', serif;
+    font-size: clamp(42px, 8vw, 80px);
+    font-weight: 400;
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+    margin-bottom: 20px;
+    max-width: 700px;
+  }
+
+  h1 em {
+    font-style: italic;
+    color: var(--birch);
+  }
+
+  .subtitle {
+    font-size: 16px;
+    color: var(--muted);
+    font-weight: 300;
+    line-height: 1.65;
+    max-width: 420px;
+    margin: 0 auto 48px;
+  }
+
+  /* FORM */
+  .form-wrap {
+    display: flex;
+    gap: 8px;
+    width: 100%;
+    max-width: 400px;
+    margin: 0 auto 20px;
+  }
+
+  .form-wrap input[type="email"] {
+    flex: 1;
+    height: 46px;
+    padding: 0 16px;
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    font-weight: 300;
+    color: var(--ink);
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    outline: none;
+    transition: border-color 0.15s;
+  }
+
+  .form-wrap input[type="email"]::placeholder {
+    color: #B5AFA9;
+  }
+
+  .form-wrap input[type="email"]:focus {
+    border-color: var(--birch);
+  }
+
+  .form-wrap button {
+    height: 46px;
+    padding: 0 20px;
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    color: var(--white);
+    background: var(--ink);
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: background 0.15s, transform 0.1s;
+  }
+
+  .form-wrap button:hover { background: #2D2926; }
+  .form-wrap button:active { transform: scale(0.98); }
+
+  .form-note {
+    font-size: 12px;
+    color: var(--muted);
+    font-weight: 300;
+  }
+
+  /* SUCCESS STATE */
+  .success-msg {
+    display: none;
+    align-items: center;
+    gap: 10px;
+    font-size: 14px;
+    color: var(--birch);
+    font-weight: 400;
+    margin-bottom: 20px;
+  }
+
+  .success-msg.visible { display: flex; }
+
+  .success-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--birch);
+    flex-shrink: 0;
+  }
+
+  /* LANGUAGES */
+  .languages {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    margin-top: 64px;
+    flex-wrap: wrap;
+  }
+
+  .lang-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    color: var(--muted);
+    font-weight: 300;
+  }
+
+  .lang-flag {
+    font-size: 16px;
+  }
+
+  .lang-phrase {
+    font-family: 'Instrument Serif', serif;
+    font-style: italic;
+    font-size: 14px;
+    color: var(--ink);
+  }
+
+  /* FOOTER */
+  footer {
+    position: relative;
+    z-index: 1;
+    padding: 24px 40px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: gap;
+    gap: 12px;
+  }
+
+  .footer-left {
+    font-size: 12px;
+    color: var(--muted);
+    font-weight: 300;
+  }
+
+  .footer-right {
+    font-size: 12px;
+    color: var(--muted);
+    font-weight: 300;
+  }
+
+  /* MOBILE */
+  @media (max-width: 520px) {
+    nav { padding: 20px 24px; }
+    .form-wrap { flex-direction: column; }
+    .form-wrap button { height: 46px; }
+    footer { flex-direction: column; text-align: center; padding: 20px 24px; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="/" class="logo">Kaapa</a>
+  <span class="nav-tag">Baltic · Smart Home</span>
+</nav>
+
+<main>
+  <div class="device" aria-hidden="true">
+    <div class="device-light"></div>
+    <div class="device-body">
+      <div class="device-grille"></div>
+    </div>
+    <div class="device-base"></div>
+  </div>
+
+  <p class="eyebrow">Coming soon</p>
+
+  <h1>Your home,<br><em>your language.</em></h1>
+
+  <p class="subtitle">
+    A voice-controlled smart home hub built natively for Latvian, Lithuanian, and Estonian. Privacy-first. No data harvesting. Just your home, listening.
+  </p>
+
+  <div class="form-wrap" id="form-wrap">
+    <input type="email" id="email-input" placeholder="your@email.com" autocomplete="email" />
+    <button onclick="handleSubmit()">Notify me</button>
+  </div>
+
+  <div class="success-msg" id="success-msg">
+    <span class="success-dot"></span>
+    You're on the list. We'll be in touch.
+  </div>
+
+  <p class="form-note">No spam. Only when we're ready to launch.</p>
+
+  <div class="languages">
+    <div class="lang-item">
+      <span class="lang-flag">🇱🇻</span>
+      <span class="lang-phrase">"Sveika, Māja"</span>
+    </div>
+    <div class="lang-item">
+      <span class="lang-flag">🇱🇹</span>
+      <span class="lang-phrase">"Labas, Namai"</span>
+    </div>
+    <div class="lang-item">
+      <span class="lang-flag">🇪🇪</span>
+      <span class="lang-phrase">"Tere, Kodu"</span>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <span class="footer-left">© 2025 Kaapa. Riga, Latvia.</span>
+  <span class="footer-right">kaapa.lv</span>
+</footer>
+
+<script>
+  function handleSubmit() {
+    const input = document.getElementById('email-input');
+    const email = input.value.trim();
+    const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!re.test(email)) {
+      input.style.borderColor = '#C0392B';
+      input.focus();
+      setTimeout(() => input.style.borderColor = '', 1200);
+      return;
+    }
+    document.getElementById('form-wrap').style.display = 'none';
+    document.getElementById('success-msg').classList.add('visible');
+
+    // Replace the line below with your actual form backend (Formspree, etc.)
+    // fetch('https://formspree.io/f/YOUR_ID', { method: 'POST', body: JSON.stringify({ email }), headers: { 'Content-Type': 'application/json' }});
+    console.log('Waitlist signup:', email);
+  }
+
+  document.getElementById('email-input').addEventListener('keydown', function(e) {
+    if (e.key === 'Enter') handleSubmit();
+  });
+</script>
+
+</body>
+</html>
